@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>没有防抖：<input type="text" id="undebounce"></div>
+    <div>防抖了：<input type="text" id="debounce"></div>
+    <div>节流了：<input type="text" id="debounce"></div>
+
+
+
+    <script>
+        
+        function ajax(content) {
+            console.log('ajax request ' + content)
+        }
+
+        let inputa = document.getElementById('undebounce')
+
+        inputa.addEventListener('keyup', function (e) {
+            ajax(e.target.value)
+         })
+        
+    //////////////////////////////////    
+        
+        function debounce(fun, delay) {
+            return function (args) {
+                let that = this
+                let _args = args
+                clearTimeout(fun.id)
+                fun.id = setTimeout(function () {
+                    fun.call(that, _args)
+                }, delay)
+            }
+        }
+    
+    let inputb = document.getElementById('debounce')
+
+    let debounceAjax = debounce(ajax, 500)
+
+    inputb.addEventListener('keyup', function (e) {
+            debounceAjax(e.target.value)
+        })
+
+
+
+
+    
+    
+    
+    </script>
+</body>
+</html>
